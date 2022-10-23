@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('chcek',[CheckController::class,'check']);
+Route::get('index',[CheckController::class,'index'])->name('index');
+Route::post('create',[CheckController::class,'create'])->name('create');
 
 Auth::routes();
 

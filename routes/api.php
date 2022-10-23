@@ -21,12 +21,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //Auth::routes();
 
-Route::get('todos',[ToDoController::class,'index']);
-Route::post('todos',[ToDoController::class,'store']);
-Route::delete('todos/{id}',[ToDoController::class,'destroy']);
-Route::put('todos/{id}',[ToDoController::class,'update']);
-Route::put('complete-todo',[ToDoController::class,'complete']);
-Route::put('incomplete-todo',[ToDoController::class,'incomplete']);
+//Route::get('todos',[ToDoController::class,'index']);
+//Route::post('todos',[ToDoController::class,'store']);
+//Route::delete('todos/{id}',[ToDoController::class,'destroy']);
+//Route::put('todos/{id}',[ToDoController::class,'update']);
+//Route::put('complete-todo',[ToDoController::class,'complete']);
+//Route::put('incomplete-todo',[ToDoController::class,'incomplete']);
+//Route::post('comment',[ToDoController::class,'comment']);
 
 
 

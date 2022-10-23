@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Todo extends Model
 {
+    protected $table = 'todos';
     use HasFactory;
-    protected $fillable = ['name','done'];
+    protected $fillable = ['user_id','name','done'];
+   
+    public function user()
+    {
+     return $this->hasOne(related: User::class);
+    }
 }

@@ -38,6 +38,7 @@ class ToDoController extends Controller
         $todo->user_id = Auth::user()->id;
         $todo->name = $request->input('name');
        
+       
         $todo->save();
         return response()
         ->json($todo);
@@ -91,5 +92,14 @@ class ToDoController extends Controller
         $todo = Todo::find($id)->delete();
         return response()
         ->json($todo);
+    }
+
+    public function comment(Request $request, $id)
+    {
+        
+        $todo = Todo::find($id);
+        $todo->comment = $request->comment;
+       
+        $todo->save();
     }
 }

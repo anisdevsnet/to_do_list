@@ -41,9 +41,7 @@
                                 >
                                     Reset
                                 </button>
-                                <button type="button" @click="download()">
-                                    Due
-                                </button>
+                                
                                 
                             </div>
                             
@@ -54,6 +52,7 @@
                                 <tr>
                                     <th>Sl No</th>
                                     <th>Works</th>
+                                    <th>Comment</th>
                                     <th>Action </th>
                                 </tr>
                             </thead>
@@ -61,6 +60,7 @@
                                 <tr v-for="(todo, index) in todos" :key="index">
                                     <td>{{ ++index }}</td>
                                     <td>{{ todo.name }}</td>
+                                    <td>{{ todo.comment }}</td>
                                     <td>
                                         <button
                                             class="btn btn-danger"
@@ -95,6 +95,7 @@
                                             &#8630;
                                             
                                         </button>
+                                        <button style="margin-left: 15px;"  @click="showAlert">Hello world</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -106,6 +107,7 @@
     </div>
 </template>
 <script>
+
 import axios from "axios";
 
 export default {
@@ -116,6 +118,7 @@ export default {
             todo_input: "",
             edit_todo_id: "",
             edit_index: "",
+            comment_input: "",
             
         };
     },
@@ -185,27 +188,29 @@ export default {
         },
         
         
-         download() {
-            var result = '';
-            var callbacks = jQuery.Callbacks();
-            // function to be added to the list
-            var fun1 = function (val) {
-                result = result + "This is function 1 and"
-                    + " value passed is " + val + "<br>";
-            };
-            var fun2 = function (val) {
-                result = result + "This is function 2 and"
-                    + " value passed is " + val + "<br>";
-            };
-            callbacks.add(fun1); // Adding the function 1
-            callbacks.fire({
-                
-
-            }); // Calling with 'GFG_1'
-            callbacks.add(fun2); // Adding the function 2
-            callbacks.fire("GFG_2"); // Calling with 'GFG_2'
+        showAlert() {
+      // Use sweetalert2
+        this.$swal.fire({
+            title: 'Comment',
+            input: 'textarea',
+            //inputValue: 'insert your comment if neede',
+            buttons: true,
+            showCancelButton: true,
+            }).then((response)=>{
+                if(response.isConfirmed)
+                {
+                    if (this.comment_input.length > 0) {
+                         let data = { comment: this.comment_input };
+                         axios.post("http://127.0.0.1:8000/api/comment", data).then((response) => {
+                         this.todos.push(response.data);       
+                         this.comment_input = "";
+                });
+            }
+                }
+            })
             
-        } 
+            
+        },
         
         
     },

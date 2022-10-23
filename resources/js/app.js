@@ -4,9 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
 import './bootstrap';
 import { createApp } from 'vue';
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 
 /**
@@ -16,9 +19,11 @@ import { createApp } from 'vue';
  */
 
 const app = createApp({});
-
+app.use(VueSweetalert2);
 import Todo from './components/Todo.vue';
 app.component('todo', Todo);
+
+
 
 /**
  * The following block of code may be used to automatically register your

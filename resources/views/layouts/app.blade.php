@@ -22,6 +22,7 @@
     <script src=
     "https://code.jquery.com/jquery-3.5.0.js">
         </script>
+  <script src="sweetalert2.all.min.js"></script>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Todo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ToDoController extends Controller
 {
@@ -15,19 +16,29 @@ class ToDoController extends Controller
      */
     public function index()
     { 
-        
-            return response()->json(Todo::latest()->get());
-        
-        
+        //dd(Auth::user());
+            return response()
+            ->json(Todo::where('user_id','=',Auth::user()->id)->orderBy('created_at','DESC')->get());
         
     }
 
-   
-
-    
     public function store(Request $request)
     {   
-        $todo = Todo::Create($request->all());
+         //dd( auth()->user());
+        $rules =[
+            'name'=>'required|max:25'
+        ];
+        $validator = Validator::make($request->all(),$rules);
+        if($validator->fails()){
+            $result = $validator->errors()->all();
+            return response(['error' => $result]);
+        }
+
+        $todo = new Todo;
+        $todo->user_id = Auth::user()->id;
+        $todo->name = $request->input('name');
+       
+        $todo->save();
         return response()
         ->json($todo);
     }
